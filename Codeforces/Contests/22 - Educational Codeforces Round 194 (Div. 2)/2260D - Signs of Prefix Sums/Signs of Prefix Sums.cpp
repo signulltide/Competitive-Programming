@@ -23,83 +23,56 @@ using namespace __gnu_cxx;
 #define vin(...) [&](auto&... vecs){ (( [&](){ for(auto &x : vecs) cin >> x; }() ), ...); }(__VA_ARGS__)
 #define vout(...) [&](auto&&... vecs){ (( [&](){ int n_ = 0; for(auto &x : vecs) cout << (n_++ ? " " : "") << x; cout << "\n"; }() ), ...); }(__VA_ARGS__)
 
-#define rep(i, a, b) for (ll i=a; i<b; i++)
+#define rep(x,start,end) for(auto x=(start)-((start)>(end));x!=(end)-((start)>(end));((start)<(end)?x++:x--))
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
 void Solve() {
     ll n;
-    in(n);
-    vector<ll> b(n), a(n, 1);
-    vin(b);
+    string s;
+    in(n, s);
+
+    // -1
+
+    if (s[0] == '0') {
+        out("-1");
+        return;
+    }
 
     rep(i, 0, n-1) {
-        if (b[i] == -1 || b[i+1] == -1) {
-            continue;
-        }
-        if (abs(b[i] - b[i+1]) > 1) {
-            out(-1);
+        if (s[i] == '0' && s[i+1] == '0') {
+            out("-1");
             return;
         }
     }
 
-    vector<ll> diff(n+1, 0);
+    // 1
+
+    bool flag = true;
     rep(i, 0, n) {
-        if (b[i] == -1) continue;
-        ll x = b[i];
-        ll l = max(0ll, i - x + 1);
-        ll r = min(n-1, i + x - 1);
-        if (l <= r) {
-            diff[l]++;
-            diff[r + 1]--;
+        if (s[i] == s[i+1]) {
+            flag = false;
+            break;
         }
     }
-    //vout(diff);
-    ll curr = 0;
-    rep(i, 0, n) {
-        curr += diff[i];
-        if (curr > 0) a[i] = 0;
+    if (flag) {
+        out("1");
+        return;
     }
 
-    rep(i, 0, n-1) {
-        if (b[i] == -1 || b[i+1] == -1) {
-            continue;
-        }
-        if (abs(b[i] - b[i+1]) > 1) {
-            out(-1);
+    // 3
+
+    rep(i, 0, n-3) {
+        if ((s[i] == '+' && s[i+1] == '-' && s[i+2] == '-' && s[i+3] == '+') || (s[i] == '-' && s[i+1] == '+' && s[i+2] == '+' && s[i+3] == '-')) {
+            out("3");
             return;
         }
     }
 
-    rep(i, 0, n) {
-        if (b[i] != -1) {
-            if (i-b[i] >= 0 && i+b[i] < n) {
-                if (a[i-b[i]] == 0 && a[i+b[i]] == 0) {
-                    out(-1);
-                    return;
-                }
-            } else if (i-b[i] >= 0) {
-                if (a[i-b[i]] == 0) {
-                    out(-1);
-                    return;
-                }
-            } else if (i+b[i] < n) {
-                if (a[i+b[i]] == 0) {
-                    out(-1);
-                    return;
-                }
-            } else {
-                out(-1);
-                return;
-            }
-        }
-    }
+    // 2
 
-    for (ll aa : a) {
-        cout << aa;
-    }
-    cout << endl;
+    out("2");
 }
 
 int main() {

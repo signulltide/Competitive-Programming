@@ -23,13 +23,26 @@ using namespace __gnu_cxx;
 #define vin(...) [&](auto&... vecs){ (( [&](){ for(auto &x : vecs) cin >> x; }() ), ...); }(__VA_ARGS__)
 #define vout(...) [&](auto&&... vecs){ (( [&](){ int n_ = 0; for(auto &x : vecs) cout << (n_++ ? " " : "") << x; cout << "\n"; }() ), ...); }(__VA_ARGS__)
 
-#define rep(x,start,end) for(auto x=(start)-((start)>(end));x!=(end)-((start)>(end));((start)<(end)?x++:x--))
+#define rep(i, a, b, c) for (ll i=a; i<b; i++)
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
 void Solve() {
-    
+    ll n;
+    in(n);
+    vector<ll> arr(n);
+    vin(arr);
+    ll i = n-2, ans = 0;
+    while (i >= 0) {
+        if (arr[i] == arr[n-1]) {
+            i--;
+        } else {
+            ans++;
+            i -= n - 1 - i;
+        }
+    }
+    out(ans);
 }
 
 int main() {

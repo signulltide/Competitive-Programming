@@ -29,7 +29,17 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
 void Solve() {
-    
+    ll x, y, k;
+    in(x, y, k);
+    ll ans = 0;
+    do {
+        ans += y % x;
+        x++;
+        y++;
+        k--;
+    } while (x <= y - x && k > 0);
+    ans += (y - x) * k;
+    out(ans);
 }
 
 int main() {

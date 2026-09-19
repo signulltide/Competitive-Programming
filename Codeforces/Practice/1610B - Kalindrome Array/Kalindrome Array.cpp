@@ -28,8 +28,49 @@ using namespace __gnu_cxx;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
+ll n;
+vector<ll> arr;
+
+bool Check(ll x) {
+
+    vector<ll> brr;
+
+    for (ll a : arr) {
+        if (a != x) {
+            brr.push_back(a);
+        }
+    }
+
+    ll s =  brr.size();
+
+    rep(i, 0, s) {
+        if (brr[i] != brr[s-i-1]) return false;
+    }
+
+    return true;
+}
+
 void Solve() {
-    
+    in(n);
+    arr.resize(n);
+    vin(arr);
+
+    ll l = 0, r = n - 1;
+
+    while (l < r) {
+        if (arr[l] != arr[r]) {
+            if (Check(arr[l]) || Check(arr[r])) {
+                out("YES");
+                return;
+            } else {
+                out("NO");
+                return;
+            }
+        }
+        l++; r--;
+    }
+
+    out("YES");
 }
 
 int main() {

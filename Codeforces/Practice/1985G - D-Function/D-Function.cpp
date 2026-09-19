@@ -28,8 +28,32 @@ using namespace __gnu_cxx;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
+ll powMod(ll x, ll n, int M) {
+    ll res = 1;
+
+    while (n >= 1) {
+        
+        if (n & 1) {
+            res = (res * x) % M;
+            n--;  
+        }
+        
+        else {
+            x = (x * x) % M;
+            n /= 2;
+        }
+
+    }
+
+    return res;
+}
+
 void Solve() {
-    
+    ll l, r, k;
+    in(l, r, k);
+    ll a = powMod(9/k + 1, r, MOD1);
+    ll b = powMod(9/k + 1, l, MOD1);
+    out((a - b + MOD1) % MOD1);
 }
 
 int main() {

@@ -29,7 +29,48 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
 void Solve() {
-    
+    ll n;
+    in(n);
+
+    vector<ll> a(n + 1);
+    for (ll k = 1; k <= n; ++k) {
+        in(a[k]);
+    }
+
+    // Difference array to mark forbidden ranges in [0, n - 1]
+    vector<ll> diff(n + 2, 0);
+
+    for (ll k = 1; k <= n; ++k) {
+        ll L = 1LL * k * a[k];
+        ll R = 1LL * k * a[k] + k - 1;
+
+        // Only mark if the range overlaps with {0, 1, ..., n - 1}
+        if (L < n) {
+            ll left_idx = max(0LL, L);
+            ll right_idx = min((ll)n - 1, R);
+            if (left_idx <= right_idx) {
+                diff[left_idx]++;
+                diff[right_idx + 1]--;
+            }
+        }
+    }
+
+    // Identify non-forbidden elements
+    vector<ll> B;
+    ll current_coverage = 0;
+    for (ll x = 0; x < n; ++x) {
+        current_coverage += diff[x];
+        if (current_coverage == 0) {
+            B.push_back(x);
+        }
+    }
+
+    // Output size and elements
+    cout << B.size() << "\n";
+    for (ll i = 0; i < B.size(); ++i) {
+        cout << B[i] << (i + 1 == B.size() ? "" : " ");
+    }
+    cout << "\n";
 }
 
 int main() {
