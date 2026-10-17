@@ -29,7 +29,39 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
 void Solve() {
+    ll n, q;
+    in(n, q);
+    vector<ll> arr(n), qrs(q);
+    vin(arr);
+    vin(qrs);
+
+    vector<ll> pref(n, 0), req(n, 0);
+    pref[0] = arr[0];
+    req[0] = arr[0];
+    rep(i, 1, n) {
+        pref[i] = pref[i-1] + arr[i];
+        req[i] = max(req[i-1], arr[i]);
+    }
+
+    //vout(arr, req, qrs);
+
+    vector<ll> res(q, 0);
+    rep(i, 0, q) {
+        auto it = upper_bound(req.begin(), req.end(), qrs[i]);
+        ll idx = n;
+        idx = distance(req.begin(), it);
+        if (idx == 0) {
+            res[i] = 0;
+        } else {
+            res[i] = pref[idx - 1];
+        }
+    }
     
+    //out("---");
+
+    vout(res);
+
+    //out("=====");
 }
 
 int main() {
