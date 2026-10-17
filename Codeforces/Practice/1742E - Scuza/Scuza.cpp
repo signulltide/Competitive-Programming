@@ -29,15 +29,7 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
 void Solve() {
-    ll n;
-    cin >> n;
-    string s;
-    cin >> s;
-
-    ll cnt = 0;
-    for (ll i = 0; i < n; i++) cnt += s[i] == '(';
-
-    cout << (2 * cnt == n ? "YES" : "NO") << endl;
+    
 }
 
 int main() {
