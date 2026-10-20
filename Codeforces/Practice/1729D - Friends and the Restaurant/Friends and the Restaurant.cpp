@@ -11,7 +11,7 @@ using namespace __gnu_cxx;
 
 #define fastIO ios_base::sync_with_stdio(false); cin.tie(NULL);
 #define ll long long
-#define endl '\n'
+#define endl "\n"
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 
@@ -21,7 +21,7 @@ using namespace __gnu_cxx;
 #define in(...) [&](auto&... args){ (cin >> ... >> args); }(__VA_ARGS__)
 #define out(...) [&](auto&&... args){ int n_ = 0; ((cout << (n_++ ? " " : "") << args), ...); cout << endl; }(__VA_ARGS__)
 #define vin(...) [&](auto&... vecs){ (( [&](){ for(auto &x : vecs) cin >> x; }() ), ...); }(__VA_ARGS__)
-#define vout(...) [&](auto&&... vecs){ (( [&](){ int n_ = 0; for(auto &x : vecs) cout << (n_++ ? " " : "") << x; cout << "\n"; }() ), ...); }(__VA_ARGS__)
+#define vout(...) [&](auto&&... vecs){ (( [&](){ int n_ = 0; for(auto &x : vecs) cout << (n_++ ? " " : "") << x; cout << endl; }() ), ...); }(__VA_ARGS__)
 
 #define rep(x,start,end) for(auto x=(start)-((start)>(end));x!=(end)-((start)>(end));((start)<(end)?x++:x--))
 
@@ -35,10 +35,10 @@ void Solve() {
 int main() {
     fastIO;
 
-    ll testCount;
-    cin >> testCount;
+    ll t;
+    cin >> t;
 
-    while (testCount--) Solve();
+    while (t--) Solve();
 
     return 0;
 }
