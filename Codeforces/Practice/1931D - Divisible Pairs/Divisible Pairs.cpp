@@ -32,23 +32,26 @@ void Solve() {
     ll n, x, y;
     in(n, x, y);
     vector<ll> arr(n);
-    map<ll, map<ll, ll>> mp;
     vin(arr);
-    rep(i, 0, n) {
-        ll idx = arr[i] % x;
-        if (idx > x/2) idx = x - idx;
-        mp[arr[i] % y][idx]++;
+    
+    map<pair<ll, ll>, ll> freq;
+
+    for (ll i=0; i<n; i++) {
+        pair<ll, ll> curr = {arr[i] % x, arr[i] % y};
+        freq[curr]++;
     }
+
     ll ans = 0;
-    for (auto &[g, mpx] : mp) {
-        out(g);
-        for (auto &[rem, occ] : mpx) {
-            ans += occ / 2;
-            out(rem, occ);
-        }
+
+    for (ll i=0; i<n; i++) {
+        pair<ll, ll> curr = {arr[i] % x, arr[i] % y};
+        pair<ll, ll> match = {(x - (arr[i] % x)) % x, arr[i] % y};
+
+        freq[curr]--;
+        ans += freq[match];
     }
+
     out(ans);
-    out("=====================");
 }
 
 int main() {
