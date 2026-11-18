@@ -26,17 +26,37 @@ using namespace __gnu_cxx;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_map;
 
-void Solve() {
-    
-}
-
 int main() {
     fastIO;
 
-    ll t;
-    cin >> t;
+    ll n, k, x;
+    in(n, k, x);
+    vector<ll> arr(n);
+    vin(arr);
+    
+    sort(all(arr));
+    //vout(arr);
 
-    while (t--) Solve();
+    ll groups = 1;
+    priority_queue<ll, vector<ll>, greater<ll>> spend;
+
+    for (ll i=1; i<n; i++) {
+        ll diff = arr[i] - arr[i-1];
+        if (diff > x) {
+            groups++;
+            spend.push((diff - 1) / x);
+        }
+    }
+
+    while (k > 0 && groups > 1) {
+        ll top = spend.top();
+        spend.pop();
+        if (k - top < 0) break;
+        k -= top;
+        groups--;
+    }
+
+    out(groups);
 
     return 0;
 }
